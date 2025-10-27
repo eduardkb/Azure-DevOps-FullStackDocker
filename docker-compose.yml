@@ -1,0 +1,35 @@
+services:
+  sql:
+    build: ./03-Sql
+    env_file: ./03-Sql/.env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - webappnet
+    restart: unless-stopped
+
+  api:
+    build: ./02-Api
+    env_file: ./02-Api/.env
+    depends_on:
+      - sql
+    networks:
+      - webappnet
+    restart: unless-stopped
+
+  web:
+    build: ./01-Web
+    env_file: ./01-Web/.env
+    depends_on:
+      - api
+    networks:
+      - webappnet
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+networks:
+  webappnet:
+
+volumes:
+  mysql_data:

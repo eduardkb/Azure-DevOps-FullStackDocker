@@ -1,0 +1,12 @@
+# Use the official MySQL image
+FROM mysql:latest
+
+# Copy any custom SQL scripts you want executed at first init
+# (Optional — only if you have custom schema setup)
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Expose the MySQL port
+EXPOSE 3306
+
+# Default command
+CMD ["mysqld"]

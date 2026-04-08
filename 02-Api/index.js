@@ -9,7 +9,7 @@ console.log(`FE Path: ${__dirname}`);
 const app = express();
 
 //TO RUN FE WITH EXPRESS
-app.use(express.static(path));
+// app.use(express.static(path));
 
 // Read allowed origins from .env or use defaults
 // Example .env line: CORS_ORIGIN=http://localhost,http://localhost:3000
@@ -51,18 +51,23 @@ db.sequelize
 //     console.log("Drop and re-sync db.");
 // });
 
-// simple route
-app.get("/", (req, res) => {
+
+// root route
+app.get("/api", (req, res) => {
   res.json({ message: "Welcome to the application's API." });
 });
+
+// include routes in server.js
+require("./app/routes/turorial.routes")(app);
 
 //TO RUN FE WITH EXPRESS
 // app.get('/', function (req,res) {
 //   res.sendFile(path + "index.html");
 // });
 
-// include routes in server.js
-require("./app/routes/turorial.routes")(app);
+app.use((req, res) => {
+  res.status(404).json({ message: "API reached! However, route was not found." });
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;

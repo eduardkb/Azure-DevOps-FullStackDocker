@@ -2,9 +2,15 @@
 
 ## DOCKER COMPOSE
 
-    - docker compose up -d
-    - docker compose down -v      # remove container and volumes
-    - docker system prune -a -f   # remove images
+    - Commission all containers
+        - docker compose up -d      
+    
+    - Rebuild all containers
+        - docker compose up -d --force-recreate --build  
+
+    - Cleanup:
+        - docker compose down -v      # remove container and volumes
+        - docker system prune -a --volumes -f   # remove images  
 
 ## DOCKER IMAGES
 
